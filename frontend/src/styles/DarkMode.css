@@ -1,3 +1,27 @@
+/* Home and product containers */
+body.dark-mode .home-product-slider,
+body.dark-mode .home-product-container,
+body.dark-mode .product-container,
+body.dark-mode .admin-orders-page-container,
+body.dark-mode .header-sec {
+  background-color: #23272f !important;
+}
+
+body.dark-mode .product-card {
+  background-color: #23272f !important;
+  border-color: #444 !important;
+}
+
+body.dark-mode .product-card h2,
+body.dark-mode .product-card p,
+body.dark-mode .product-card span,
+body.dark-mode .product-card a {
+  color: #e0e0e0 !important;
+}
+
+body.dark-mode .sec-title {
+  color: #e0e0e0 !important;
+}
 /* Dark mode styles for the entire app */
 body.dark-mode {
   background-color: #181a1b !important;
