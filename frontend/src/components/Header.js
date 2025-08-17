@@ -2,9 +2,18 @@ import React, { useState, useEffect } from 'react'
 import {Link} from 'react-router-dom';
 import '../styles/Header.css'
 import '../styles/DarkMode.css'
+import { useSelector, useDispatch } from 'react-redux';
+import { signout } from '../actions/UserAction';
+
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import SearchIcon from '@material-ui/icons/Search';
+
+const Header = (props) => {
     // Dark mode state
     const [darkMode, setDarkMode] = useState(() => {
-        // Check localStorage for persisted mode
         return localStorage.getItem('darkMode') === 'true';
     });
 
@@ -20,16 +29,24 @@ import '../styles/DarkMode.css'
     const handleDarkModeToggle = () => {
         setDarkMode((prev) => !prev);
     };
-import { useSelector, useDispatch } from 'react-redux';
-import { signout } from '../actions/UserAction';
 
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+    const dispatch = useDispatch();
+    const [dropdown, setDropDown] = useState(false);
+    const [secondDropdown, setSecondDropdown] = useState(false);
+    const [query, setQuery] = useState('');
 
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import SearchIcon from '@material-ui/icons/Search';
+    const showDropDown = () => setDropDown((prev) => !prev);
+    const showSecondDropDown = () => setSecondDropdown((prev) => !prev);
 
-const Header = (props) => {
+    const cart = useSelector((state) => state.cart);
+    const {cartItems} = cart;
+
+    const userSignin = useSelector((state) => state.userSignin);
+    const { userInfo } = userSignin;
+
+    const signOutHandler = () => {
+        dispatch(signout());
+    };
 
     return (
         <>
@@ -41,10 +58,10 @@ const Header = (props) => {
                         </div>
                         <div className="search-bar">
                             <input className="search-input"
-                            onChange={(e)=> setQuery(e.target.value)}
-                            placeholder="Search products"
-                            value={query}>
-                            </input>
+                                onChange={(e)=> setQuery(e.target.value)}
+                                placeholder="Search products"
+                                value={query}
+                            />
                             <div className="search-btn">
                                 <Link to={`/searchresults/${query}`}>
                                     <SearchIcon/>
@@ -64,7 +81,7 @@ const Header = (props) => {
                             </li>
                             <li>
                                 <Link to="/cart"><ShoppingCartIcon/>
-                                    {cartItems.length > 0 && (<p className="badge">{cartItems.length}</p>)}
+                                    {cartItems && cartItems.length > 0 && (<p className="badge">{cartItems.length}</p>)}
                                 </Link>
                             </li>
                             <li>
@@ -107,29 +124,6 @@ const Header = (props) => {
                             )}
                         </ul>
                     </div>
-                    </div>
-                    <div className="category-container">
-                        <ul>
-                            <li><Link to="/category/mobile">Mobile</Link></li>
-                            <li><Link to="/category/laptop">Laptop</Link></li>
-                            <li><Link to="/category/monitor">Monitor</Link></li>
-                            <li><Link to="/category/accessories">Computer Accessories</Link></li>
-                            <li><Link to="/category/earphones">Earphones</Link></li>
-                        </ul>
-                    </div>
-                    </header>
-                    </>
-                                        </p>
-                                        <ul className={ secondDropdown? 'dropdown-content show' : 'dropdown-content'}>
-                                            <li>
-                                               <Link to="/productlist">Products</Link> 
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            )}
-                        </ul>
-                    </div>
                 </div>
                 <div className="category-container">
                     <ul>
@@ -142,17 +136,6 @@ const Header = (props) => {
                 </div>
             </header>
         </>
-
-                    <ul>
-                        <li><Link to="/category/mobile">Mobile</Link></li>
-                        <li><Link to="/category/laptop">Laptop</Link></li>
-                        <li><Link to="/category/monitor">Monitor</Link></li>
-                        <li><Link to="/category/accessories">Computer Accessories</Link></li>
-                        <li><Link to="/category/earphones">Earphones</Link></li>
-                    </ul>
-                </div>
-            </div>
-        </header>
     )
 }
 
