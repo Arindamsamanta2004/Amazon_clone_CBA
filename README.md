@@ -34,5 +34,16 @@ This will open two terminals: one for the backend (http://localhost:5000), one f
 - If you want to use a real MongoDB, set `MONGO_URL` in `backend/.env` and restart the backend.
 - For demo/mock mode, no database is required.
 
+## Project Screenshots
+
+*Add your project screenshots here to showcase the application features:*
+
+- Homepage
+- Product listings
+- Shopping cart
+- User authentication
+- Order management
+- Admin panel
+
 ---
 **Project for CBA India Internship (GRP)**
